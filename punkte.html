@@ -1,9 +1,14 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<!-- Google Tag Manager (euer bestehender Container) -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-55C69LHT');</script>
-<!-- End Google Tag Manager -->
+<!-- Google tag (gtag.js) - Google Ads -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-709708397"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-709708397');
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MPU wegen Punkten bestehen – Vorbereitung online & Düsseldorf | MPU Point</title>
@@ -140,7 +145,6 @@
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-55C69LHT" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
 <header class="top">
@@ -179,7 +183,7 @@
       <h3>Kostenlose Ersteinschätzung</h3>
       <p class="sub">Vertraulich &amp; unverbindlich. Wir melden uns schnell zurück.</p>
       <!-- Formspree: kostenlos auf formspree.io anmelden, Form-ID statt DEINE-FORM-ID einsetzen, Ziel info@mpu-point.de. Bis dahin funktionieren Anrufen/WhatsApp unten ohne Einrichtung. -->
-      <form action="https://formspree.io/f/xdavzbzp" method="POST" onsubmit="return mpuTrack();">
+      <form action="https://formspree.io/f/xdavzbzp" method="POST" id="leadform" onsubmit="return mpuTrack();">
         <input type="hidden" name="_subject" value="Neue MPU-Anfrage (Punkte) – Landingpage">
         <label for="name">Ihr Name</label>
         <input type="text" id="name" name="name" placeholder="Vor- und Nachname" required>
@@ -376,8 +380,22 @@
 
 <script>
   document.getElementById('jahr').textContent = new Date().getFullYear();
-  /* Lead-Event in den dataLayer. In GTM (GTM-55C69LHT) Trigger auf "mpu_lead" → Google-Ads-Conversion. */
-  function mpuTrack(){ try{ window.dataLayer=window.dataLayer||[]; var t=document.getElementById('thema'); window.dataLayer.push({event:'mpu_lead', mpu_thema: t?t.value:'Punkte'}); }catch(e){} return true; }
+  /* Beim Absenden Google-Ads-Conversion "Erstgespräch Funnel" feuern, dann an Formspree senden. */
+  function mpuTrack(){
+    try{
+      var form=document.getElementById('leadform');
+      if(form && form._sent){ return true; }
+      var sent=false;
+      var go=function(){ if(sent) return; sent=true; if(form){ form._sent=true; form.submit(); } };
+      gtag('event','conversion',{
+        'send_to':'AW-709708397/2c-GCJLl-LscEO2UtdIC',
+        'value':1320,'currency':'EUR',
+        'event_callback':go
+      });
+      setTimeout(go,1200);
+      return false;
+    }catch(e){ return true; }
+  }
 </script>
 </body>
 </html>
