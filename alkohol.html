@@ -235,7 +235,7 @@
     <!-- FORMULAR -->
     <div class="formcard" id="form">
       <h3>Kostenlose Ersteinschätzung</h3>
-      <p class="sub">Kein Verkaufsgespräch – wir hören erst einmal zu. Vertraulich &amp; unverbindlich, ohne Bewertung.</p>
+      <p class="sub">Kein Verkaufsgespräch – wir hören erst einmal zu. Vertraulich &amp; unverbindlich, ohne Bewertung.<br><strong style="color:var(--gruen-dunkel)">⏱ Antwort meist innerhalb weniger Stunden (Mo–Sa).</strong></p>
       <!--
         >>> FORMULAR VERSANDFERTIG MACHEN (1 Schritt, kostenlos):
         1. Auf formspree.io kostenlos anmelden, neues Formular anlegen,
@@ -249,9 +249,9 @@
         <input type="hidden" name="_subject" value="Neue MPU-Anfrage (Alkohol) – Landingpage">
         <input type="hidden" name="_next" value="https://start.mpu-point.de/danke.html">
         <label for="name">Ihr Name</label>
-        <input type="text" id="name" name="name" placeholder="Vor- und Nachname" required>
+        <input type="text" id="name" name="name" placeholder="Vor- und Nachname" autocomplete="name" required>
         <label for="tel">Telefonnummer</label>
-        <input type="tel" id="tel" name="telefon" placeholder="Für den Rückruf" required>
+        <input type="tel" id="tel" name="telefon" placeholder="Für den Rückruf" autocomplete="tel" inputmode="tel" required>
         <label for="thema">Worum geht es?</label>
         <select id="thema" name="thema">
           <option value="Alkohol" selected>MPU wegen Alkohol</option>
@@ -262,7 +262,7 @@
         <label for="nachricht">Kurze Nachricht (optional)</label>
         <textarea id="nachricht" name="nachricht" rows="2" placeholder="z. B. Promillewert, wann der Termin ansteht"></textarea>
         <button type="submit" class="btn">Jetzt kostenlos anfragen</button>
-        <p class="mini">🔒 Diskret &amp; vertraulich – Ihre Daten werden nicht weitergegeben.</p>
+        <p class="mini">🔒 Diskret &amp; vertraulich – Ihre Daten werden nicht weitergegeben. Mit dem Absenden stimmen Sie der Verarbeitung Ihrer Angaben zur Kontaktaufnahme gemäß <a href="https://www.mpu-point.de/datenschutz" target="_blank" rel="noopener" style="color:var(--gruen);text-decoration:underline">Datenschutzerklärung</a> zu.</p>
       </form>
       <div class="or">— oder direkt —</div>
       <div class="altcontact">
@@ -300,6 +300,7 @@
     <div><span class="num">98,8 %</span><span class="lbl">Erfolgsquote</span></div>
     <div><span class="num">4,9 ★</span><span class="lbl">aus 95 Google-Bewertungen</span></div>
   </div>
+  <p style="text-align:center;font-size:.74rem;color:#cfe7d9;padding:14px 22px 0;max-width:780px;margin:0 auto">* Erfolgsquote von 98,8 % bezogen auf abgeschlossene MPU-Vorbereitungen seit 2016. Jeder Fall ist individuell – ein Bestehen lässt sich nicht garantieren.</p>
 </div>
 
 <!-- ===== TRUST-BADGES ===== -->
