@@ -481,15 +481,15 @@
   function mpuTrack(){
     try{
       var form=document.getElementById('leadform');
-      if(form && form._sent){ return true; }
-      var sent=false;
-      var go=function(){ if(sent) return; sent=true; if(form){ form._sent=true; form.submit(); } };
-      gtag('event','conversion',{
-        'send_to':'AW-709708397/2c-GCJLl-LscEO2UtdIC',
-        'value':1320,'currency':'EUR',
-        'event_callback':go
-      });
-      setTimeout(go,1200);
+      if(!form) return true;
+      if(form._sent) return false;
+      form._sent=true;
+      var btn=form.querySelector('button[type=submit],input[type=submit]');
+      if(btn){ btn.disabled=true; }
+      try{ gtag('event','conversion',{'send_to':'AW-709708397/2c-GCJLl-LscEO2UtdIC','value':1320,'currency':'EUR'}); }catch(e){}
+      fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}})
+        .then(function(r){ if(r.ok){ window.location.href='/danke.html'; } else { if(btn){btn.disabled=false;} form._sent=false; form.submit(); } })
+        .catch(function(){ if(btn){btn.disabled=false;} form._sent=false; form.submit(); });
       return false;
     }catch(e){ return true; }
   }
