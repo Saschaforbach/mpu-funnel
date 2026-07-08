@@ -182,8 +182,8 @@
     <div class="formcard" id="form">
       <h3>Kostenlose Ersteinschätzung</h3>
       <p class="sub">Kein Verkaufsgespräch – wir hören erst einmal zu. Vertraulich &amp; unverbindlich, ohne Bewertung.<br><strong style="color:var(--gruen-dunkel)">⏱ Antwort meist innerhalb weniger Stunden (Mo–Sa).</strong></p>
-      <!-- Formspree: kostenlos auf www.mpu-point.de anmelden, Form-ID statt DEINE-FORM-ID einsetzen, Ziel info@mpu-point.de. Bis dahin funktionieren Anrufen/WhatsApp unten ohne Einrichtung. -->
-      <form action="https://www.mpu-point.de/api/lead" method="POST" id="leadform" onsubmit="return mpuTrack();">
+      <!-- Formspree: kostenlos auf formspree.io anmelden, Form-ID statt DEINE-FORM-ID einsetzen, Ziel info@mpu-point.de. Bis dahin funktionieren Anrufen/WhatsApp unten ohne Einrichtung. -->
+      <form action="https://formspree.io/f/xdavzbzp" method="POST" id="leadform" onsubmit="return mpuTrack();">
         <input type="hidden" name="_subject" value="Neue MPU-Anfrage (Straftaten) – Landingpage">
         <input type="hidden" name="_next" value="https://start.mpu-point.de/danke.html">
         <label for="name">Ihr Name</label>
@@ -417,6 +417,60 @@
       return false;
     }catch(e){ return true; }
   }
+</script>
+<!-- CMS-Lead-Webhook -->
+<script>
+(function(){
+  var HOOK="https://cms-deluxe-api.vercel.app/api/webhook-lead?token=whk_e4efae78d1839db7711b728497e80d8325b95520";
+  document.querySelectorAll('form[action*="formspree"]').forEach(function(f){
+    f.addEventListener("submit",function(){
+      try{
+        var d=new FormData(f);
+        var extra=[];
+        ["stadt","bundesland","thema","seitentyp"].forEach(function(k){
+          var v=d.get(k); if(v) extra.push(k.charAt(0).toUpperCase()+k.slice(1)+": "+v);
+        });
+        var payload=JSON.stringify({
+          typ:"mpu",
+          name:d.get("name")||"",
+          email:d.get("email")||"",
+          tel:d.get("telefon")||"",
+          anlass:d.get("anlass")||"",
+          quelle:"start.mpu-point.de/"+location.pathname.split("/").pop(),
+          anfrage:((d.get("nachricht")||"")+(extra.length?" | "+extra.join(" | "):"")).trim()
+        });
+        fetch(HOOK,{method:"POST",headers:{"Content-Type":"application/json"},body:payload,keepalive:true});
+      }catch(e){}
+    });
+  });
+})();
+</script>
+<!-- Termin-Buchung Umschalter -->
+<script>
+(function(){
+  var f=document.getElementById("leadform");
+  if(!f)return;
+  var G="#2e7d32";
+  var box=document.createElement("div");
+  box.style.cssText="display:flex;gap:8px;margin:0 0 14px";
+  function mk(t){var b=document.createElement("button");b.type="button";b.textContent=t;
+    b.style.cssText="flex:1;padding:11px 8px;border-radius:10px;border:2px solid "+G+";font-size:14px;font-weight:600;cursor:pointer;background:#fff;color:"+G;return b;}
+  var bForm=mk("\u2709\uFE0F Anfrage senden"), bTermin=mk("\uD83D\uDCC5 Termin direkt buchen");
+  var wrap=document.createElement("div"); wrap.style.display="none"; var frame=null;
+  function act(a,b){a.style.background=G;a.style.color="#fff";b.style.background="#fff";b.style.color=G;}
+  bForm.onclick=function(){act(bForm,bTermin);f.style.display="";wrap.style.display="none";};
+  bTermin.onclick=function(){act(bTermin,bForm);f.style.display="none";wrap.style.display="";
+    if(!frame){frame=document.createElement("iframe");frame.src="termin.html";frame.title="Termin buchen";
+      frame.style.cssText="width:100%;height:900px;border:none;border-radius:12px;background:#f6f8f7";
+      wrap.appendChild(frame);}
+  };
+  window.addEventListener("message",function(e){
+    if(e.data&&e.data.mpuTermH&&frame){frame.style.height=(e.data.mpuTermH+20)+"px";}
+  });
+  act(bForm,bTermin);
+  f.parentNode.insertBefore(box,f); box.appendChild(bForm); box.appendChild(bTermin);
+  f.parentNode.insertBefore(wrap,f.nextSibling);
+})();
 </script>
 </body>
 </html>

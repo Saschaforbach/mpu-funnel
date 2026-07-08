@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Termin buchen – MPU Point</title>
+<style>
+  :root{ --brand:#2e7d32; --brand2:#1b5e20; --bg:#f6f8f7; --card:#fff; --line:#e3e8e5; --text:#1c2620; --muted:#6b7770; }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text)}
+  .wrap{max-width:560px;margin:0 auto;padding:20px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+  h1{font-size:20px;margin:0 0 4px}
+  .sub{color:var(--muted);font-size:14px;margin:0 0 18px}
+  .step-title{font-weight:600;font-size:15px;margin:18px 0 10px}
+  .days,.times{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 12px;font-size:14px;cursor:pointer;transition:.15s}
+  .chip:hover{border-color:var(--brand)}
+  .chip.active{background:var(--brand);border-color:var(--brand);color:#fff}
+  .field{margin:10px 0}
+  label{display:block;font-size:13px;color:var(--muted);margin-bottom:4px}
+  input,select,textarea{width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;font-size:14px;font-family:inherit}
+  textarea{min-height:70px;resize:vertical}
+  .btn{background:var(--brand);color:#fff;border:none;border-radius:10px;padding:12px 18px;font-size:15px;font-weight:600;cursor:pointer;width:100%}
+  .btn:hover{background:var(--brand2)}
+  .btn[disabled]{opacity:.5;cursor:not-allowed}
+  .muted{color:var(--muted);font-size:13px}
+  .hp{position:absolute;left:-9999px;top:-9999px}
+  .consent{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--text);margin:6px 0 14px;line-height:1.4;cursor:pointer}
+  .consent input{width:auto;margin-top:2px}
+  .consent a{color:var(--brand)}
+  .ok{text-align:center;padding:20px}
+  .ok .big{font-size:44px}
+  .hidden{display:none}
+  .msg{margin-top:10px;font-size:13px}
+  .msg.err{color:#c0392b}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <h1>Kostenloses Erstgespräch buchen</h1>
+    <p class="sub">Wähle einen freien Termin – die Bestätigung erhältst du direkt.</p>
+
+    <div id="loading" class="muted">Lade freie Termine …</div>
+
+    <div id="booking" class="hidden">
+      <div class="step-title">1. Tag wählen</div>
+      <div id="days" class="days"></div>
+
+      <div id="timeBlock" class="hidden">
+        <div class="step-title">2. Uhrzeit wählen</div>
+        <div id="times" class="times"></div>
+      </div>
+
+      <div id="formBlock" class="hidden">
+        <div class="step-title">3. Deine Daten</div>
+        <div class="field"><label>Name *</label><input id="f_name" autocomplete="name"></div>
+        <div class="field"><label>E-Mail *</label><input id="f_email" type="email" autocomplete="email"></div>
+        <div class="field"><label>Telefon *</label><input id="f_tel" type="tel" autocomplete="tel"></div>
+        <div class="field"><label>Anlass</label>
+          <select id="f_anlass">
+            <option value="">Bitte wählen</option>
+            <option>Alkohol</option><option>Drogen</option><option>Punkte</option><option>Straftat</option><option>Sonstiges</option>
+          </select>
+        </div>
+        <div class="field"><label>Gespräch per *</label>
+          <select id="f_medium">
+            <option value="">Bitte wählen</option>
+            <option>Telefon</option>
+            <option>WhatsApp-Videoanruf</option>
+            <option>FaceTime</option>
+            <option>Zoom</option>
+            <option>Microsoft Teams</option>
+            <option>Google Meet</option>
+          </select>
+          <div class="muted" id="mediumHint" style="margin-top:6px"></div>
+        </div>
+        <label class="consent"><input type="checkbox" id="f_ds"> Ich habe die <a href="https://mpu-point.de/datenschutz/" target="_blank" rel="noopener">Datenschutzerklärung</a> gelesen und akzeptiere sie. *</label>
+        <!-- Honeypot gegen Bots: bitte leer lassen -->
+        <input class="hp" id="f_website" tabindex="-1" autocomplete="off" placeholder="Website">
+        <button id="submit" class="btn">Termin verbindlich buchen</button>
+        <div id="msg" class="msg"></div>
+      </div>
+    </div>
+
+    <div id="success" class="hidden ok">
+      <div class="big">✅</div>
+      <h1>Termin gebucht!</h1>
+      <p class="sub" id="successText"></p>
+      <p class="muted">Wir freuen uns auf das Gespräch. Bei Fragen melde dich einfach.</p>
+    </div>
+  </div>
+  <p class="muted" style="text-align:center;margin-top:12px">MPU Point · Terminbuchung</p>
+</div>
+
+<script>
+/* ====== KONFIG – nur hier anpassen ====== */
+const API   = "https://cms-deluxe-api.vercel.app/api/slots";
+const TOKEN = "bk_3d94d823609b1820c1ae009a1d5bef512f653069"; // öffentlicher Buchungs-Token
+const TYP   = "mpu";          // "mpu" = MPU-Kalender, "mb" = Maschinenbau
+const ROLE  = "Mitarbeiter";  // wessen Verfügbarkeit (Mitarbeiter oder Chef)
+const DUR   = 60;             // Termindauer in Minuten
+const DAYS  = 21;             // wie viele Tage im Voraus anzeigen
+/* ======================================== */
+
+const WD = ["So","Mo","Di","Mi","Do","Fr","Sa"];
+const MON = ["Jan","Feb","März","Apr","Mai","Juni","Juli","Aug","Sept","Okt","Nov","Dez"];
+let SLOTS = {}, chosenDate = null, chosenTime = null;
+
+function fmtDay(iso){ const d=new Date(iso+"T00:00:00"); return WD[d.getDay()]+", "+d.getDate()+". "+MON[d.getMonth()]; }
+
+async function load(){
+  try{
+    const r = await fetch(`${API}?token=${encodeURIComponent(TOKEN)}&typ=${TYP}&role=${encodeURIComponent(ROLE)}&days=${DAYS}&dur=${DUR}`);
+    const j = await r.json();
+    if(!j.ok) throw new Error("Fehler");
+    SLOTS = {};
+    (j.slots||[]).forEach(s=>{ (SLOTS[s.date]=SLOTS[s.date]||[]).push(s.time); });
+    document.getElementById("loading").classList.add("hidden");
+    document.getElementById("booking").classList.remove("hidden");
+    renderDays();
+  }catch(e){
+    document.getElementById("loading").textContent = "Termine konnten nicht geladen werden. Bitte später erneut versuchen.";
+  }
+}
+
+function renderDays(){
+  const dates = Object.keys(SLOTS).sort();
+  const box = document.getElementById("days"); box.innerHTML="";
+  if(!dates.length){ box.innerHTML='<span class="muted">Aktuell keine freien Termine.</span>'; return; }
+  dates.forEach(d=>{
+    const b=document.createElement("button"); b.className="chip"; b.textContent=fmtDay(d);
+    b.onclick=()=>{ chosenDate=d; chosenTime=null;
+      [...box.children].forEach(c=>c.classList.remove("active")); b.classList.add("active");
+      renderTimes(); document.getElementById("formBlock").classList.add("hidden");
+    };
+    box.appendChild(b);
+  });
+}
+
+function renderTimes(){
+  const box=document.getElementById("times"); box.innerHTML="";
+  document.getElementById("timeBlock").classList.remove("hidden");
+  (SLOTS[chosenDate]||[]).forEach(t=>{
+    const b=document.createElement("button"); b.className="chip"; b.textContent=t;
+    b.onclick=()=>{ chosenTime=t;
+      [...box.children].forEach(c=>c.classList.remove("active")); b.classList.add("active");
+      document.getElementById("formBlock").classList.remove("hidden");
+    };
+    box.appendChild(b);
+  });
+}
+
+const HINTS={
+  "Telefon":"Wir rufen dich zur gebuchten Zeit an.",
+  "WhatsApp-Videoanruf":"Wir starten zur gebuchten Zeit einen WhatsApp-Videoanruf an deine Nummer.",
+  "FaceTime":"Wir rufen dich per FaceTime an (Apple-Gerät nötig).",
+  "Zoom":"Du bekommst vorab per E-Mail den Zoom-Link.",
+  "Microsoft Teams":"Du bekommst vorab per E-Mail den Teams-Link.",
+  "Google Meet":"Du bekommst vorab per E-Mail den Google-Meet-Link."
+};
+document.getElementById("f_medium").onchange=function(){
+  document.getElementById("mediumHint").textContent = HINTS[this.value]||"";
+};
+
+document.getElementById("submit").onclick=async ()=>{
+  const name=document.getElementById("f_name").value.trim();
+  const email=document.getElementById("f_email").value.trim();
+  const tel=document.getElementById("f_tel").value.trim();
+  const medium=document.getElementById("f_medium").value;
+  const ds=document.getElementById("f_ds").checked;
+  const msg=document.getElementById("msg"); msg.textContent=""; msg.className="msg";
+  if(!name){ msg.textContent="Bitte gib deinen Namen ein."; msg.className="msg err"; return; }
+  if(!email){ msg.textContent="Bitte gib deine E-Mail-Adresse ein."; msg.className="msg err"; return; }
+  if(!tel){ msg.textContent="Bitte gib deine Telefonnummer ein."; msg.className="msg err"; return; }
+  if(!medium){ msg.textContent="Bitte wähle, wie das Gespräch stattfinden soll."; msg.className="msg err"; return; }
+  if(!ds){ msg.textContent="Bitte akzeptiere die Datenschutzerklärung."; msg.className="msg err"; return; }
+  if(!chosenDate||!chosenTime){ msg.textContent="Bitte Tag und Uhrzeit wählen."; msg.className="msg err"; return; }
+  const btn=document.getElementById("submit"); btn.disabled=true; btn.textContent="Wird gebucht …";
+  try{
+    const r=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({ token:TOKEN, typ:TYP, role:ROLE, dur:DUR,
+        name, email, tel,
+        anlass:document.getElementById("f_anlass").value,
+        medium, datenschutz:true,
+        website:document.getElementById("f_website").value, // Honeypot
+        date:chosenDate, time:chosenTime })});
+    const j=await r.json();
+    if(r.ok && j.ok){
+      document.getElementById("booking").classList.add("hidden");
+      document.getElementById("successText").textContent = fmtDay(chosenDate)+" um "+chosenTime+" Uhr";
+      document.getElementById("success").classList.remove("hidden");
+    }else{
+      msg.textContent = j.error || "Buchung fehlgeschlagen."; msg.className="msg err";
+      btn.disabled=false; btn.textContent="Termin verbindlich buchen";
+    }
+  }catch(e){
+    msg.textContent="Netzwerkfehler. Bitte erneut versuchen."; msg.className="msg err";
+    btn.disabled=false; btn.textContent="Termin verbindlich buchen";
+  }
+};
+
+/* Hoehe an einbettende Seite melden (iframe) */
+setInterval(function(){
+  try{ parent.postMessage({mpuTermH: document.documentElement.scrollHeight}, "*"); }catch(e){}
+}, 600);
+
+load();
+</script>
+</body>
+</html>
