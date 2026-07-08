@@ -194,7 +194,7 @@
     <div class="formcard" id="form">
       <h3>Kostenlose Ersteinschätzung</h3>
       <p class="sub">Kein Verkaufsgespräch – wir hören erst einmal zu. Vertraulich &amp; unverbindlich, ohne Bewertung.<br><strong style="color:var(--gruen-dunkel)">⏱ Antwort meist innerhalb weniger Stunden (Mo–Sa).</strong></p>
-      <form action="https://www.mpu-point.de/api/lead" method="POST" id="leadform" onsubmit="return mpuTrack();">
+      <form action="https://formspree.io/f/xdavzbzp" method="POST" id="leadform" onsubmit="return mpuTrack();">
         <input type="hidden" name="_subject" value="Neue MPU-Anfrage (Kassel / Alkohol) – Landingpage">
         <input type="hidden" name="_next" value="https://start.mpu-point.de/danke.html">
         <input type="hidden" name="stadt" value="Kassel">
@@ -428,22 +428,15 @@
   function mpuTrack(){
     try{
       var form=document.getElementById('leadform');
-      if(form && form._sent){ return true; }
-      var sent=false;
-      var go=function(){ if(sent) return; sent=true; if(form){ form._sent=true; form.submit(); } };
-      // 1) GoHighLevel Inbound-Webhook – strukturierte Lead-Daten zum Filtern/Routen
-      try{
-        var GHL="https://services.leadconnectorhq.com/hooks/TbRw5c8XWfuBAuN7EOKG/webhook-trigger/5666311b-4c6f-48d5-9dd7-9e1acf91d9d6";
-        if(GHL && GHL.indexOf('http')===0){
-          var fd=new FormData(form), params=new URLSearchParams();
-          fd.forEach(function(v,k){ if(k.charAt(0)!=='_') params.append(k,v); });
-          params.append('quelle', location.href);
-          fetch(GHL,{method:'POST',body:params,mode:'no-cors',keepalive:true}).catch(function(){});
-        }
-      }catch(e){}
-      // 2) Google-Ads-Conversion
-      gtag('event','conversion',{'send_to':'AW-709708397/2c-GCJLl-LscEO2UtdIC','value':920,'currency':'EUR','event_callback':go});
-      setTimeout(go,1200);
+      if(!form) return true;
+      if(form._sent) return false;
+      form._sent=true;
+      var btn=form.querySelector('button[type=submit],input[type=submit]');
+      if(btn){ btn.disabled=true; }
+      try{ gtag('event','conversion',{'send_to':'AW-709708397/2c-GCJLl-LscEO2UtdIC','value':1320,'currency':'EUR'}); }catch(e){}
+      fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}})
+        .then(function(r){ if(r.ok){ window.location.href='/danke.html'; } else { if(btn){btn.disabled=false;} form._sent=false; form.submit(); } })
+        .catch(function(){ if(btn){btn.disabled=false;} form._sent=false; form.submit(); });
       return false;
     }catch(e){ return true; }
   }
@@ -475,5 +468,59 @@
   setInterval(function(){gi=(gi+1)%GREV.length;grevShow(gi);},6000);
 </script>
 
+<!-- CMS-Lead-Webhook -->
+<script>
+(function(){
+  var HOOK="https://cms-deluxe-api.vercel.app/api/webhook-lead?token=whk_e4efae78d1839db7711b728497e80d8325b95520";
+  document.querySelectorAll('form[action*="formspree"]').forEach(function(f){
+    f.addEventListener("submit",function(){
+      try{
+        var d=new FormData(f);
+        var extra=[];
+        ["stadt","bundesland","thema","seitentyp"].forEach(function(k){
+          var v=d.get(k); if(v) extra.push(k.charAt(0).toUpperCase()+k.slice(1)+": "+v);
+        });
+        var payload=JSON.stringify({
+          typ:"mpu",
+          name:d.get("name")||"",
+          email:d.get("email")||"",
+          tel:d.get("telefon")||"",
+          anlass:d.get("anlass")||"",
+          quelle:"start.mpu-point.de/"+location.pathname.split("/").pop(),
+          anfrage:((d.get("nachricht")||"")+(extra.length?" | "+extra.join(" | "):"")).trim()
+        });
+        fetch(HOOK,{method:"POST",headers:{"Content-Type":"application/json"},body:payload,keepalive:true});
+      }catch(e){}
+    });
+  });
+})();
+</script>
+<!-- Termin-Buchung Umschalter -->
+<script>
+(function(){
+  var f=document.getElementById("leadform");
+  if(!f)return;
+  var G="#2e7d32";
+  var box=document.createElement("div");
+  box.style.cssText="display:flex;gap:8px;margin:0 0 14px";
+  function mk(t){var b=document.createElement("button");b.type="button";b.textContent=t;
+    b.style.cssText="flex:1;padding:11px 8px;border-radius:10px;border:2px solid "+G+";font-size:14px;font-weight:600;cursor:pointer;background:#fff;color:"+G;return b;}
+  var bForm=mk("\u2709\uFE0F Anfrage senden"), bTermin=mk("\uD83D\uDCC5 Termin direkt buchen");
+  var wrap=document.createElement("div"); wrap.style.display="none"; var frame=null;
+  function act(a,b){a.style.background=G;a.style.color="#fff";b.style.background="#fff";b.style.color=G;}
+  bForm.onclick=function(){act(bForm,bTermin);f.style.display="";wrap.style.display="none";};
+  bTermin.onclick=function(){act(bTermin,bForm);f.style.display="none";wrap.style.display="";
+    if(!frame){frame=document.createElement("iframe");frame.src="termin.html";frame.title="Termin buchen";
+      frame.style.cssText="width:100%;height:900px;border:none;border-radius:12px;background:#f6f8f7";
+      wrap.appendChild(frame);}
+  };
+  window.addEventListener("message",function(e){
+    if(e.data&&e.data.mpuTermH&&frame){frame.style.height=(e.data.mpuTermH+20)+"px";}
+  });
+  act(bForm,bTermin);
+  f.parentNode.insertBefore(box,f); box.appendChild(bForm); box.appendChild(bTermin);
+  f.parentNode.insertBefore(wrap,f.nextSibling);
+})();
+</script>
 </body>
 </html>
