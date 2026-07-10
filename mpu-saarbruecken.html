@@ -461,10 +461,8 @@
         quelle:"start.mpu-point.de/"+location.pathname.split("/").pop(),
         anfrage:((d.get("nachricht")||"")+(extra.length?" | "+extra.join(" | "):"")).trim()
       });
-      fetch("https://cms-deluxe-api.vercel.app/api/webhook-lead?token=whk_e4efae78d1839db7711b728497e80d8325b95520",{method:"POST",headers:{"Content-Type":"application/json"},body:payload})
-        .then(function(r){ return r.json().catch(function(){return{};}).then(function(j){ return {ok:(r.ok&&j.ok!==false)}; }); })
-        .then(function(res){ if(res.ok){ window.location.href='/danke.html'; } else { if(btn){btn.disabled=false;} form._sent=false; alert('Anfrage konnte nicht gesendet werden. Bitte versuche es erneut oder ruf uns direkt an: 0211-90989960.'); } })
-        .catch(function(){ if(btn){btn.disabled=false;} form._sent=false; alert('Anfrage konnte nicht gesendet werden. Bitte versuche es erneut oder ruf uns direkt an: 0211-90989960.'); });
+      fetch("https://cms-deluxe-api.vercel.app/api/webhook-lead?token=whk_e4efae78d1839db7711b728497e80d8325b95520",{method:"POST",headers:{"Content-Type":"application/json"},body:payload,keepalive:true}).catch(function(){});
+      window.location.href='/danke.html';
       return false;
     }catch(e){ return true; }
   }
