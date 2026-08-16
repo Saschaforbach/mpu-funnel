@@ -58,7 +58,7 @@
         <div class="field"><label>Name *</label><input id="f_name" autocomplete="name"></div>
         <div class="field"><label>E-Mail *</label><input id="f_email" type="email" autocomplete="email"></div>
         <div class="field"><label>Telefon *</label><input id="f_tel" type="tel" autocomplete="tel"></div>
-        <div class="field"><label>Anlass</label>
+                <div class="field" id="anlassField"><label>Anlass</label>
           <select id="f_anlass">
             <option value="">Bitte wählen</option>
             <option>Alkohol</option><option>Drogen</option><option>Punkte</option><option>Straftat</option><option>Sonstiges</option>
@@ -67,7 +67,7 @@
         <div class="field"><label>Gespräch per *</label>
           <select id="f_medium">
             <option value="">Bitte wählen</option>
-            <option>Telefon</option>
+                      <option selected>Telefon</option>
             <option>WhatsApp-Videoanruf</option>
             <option>FaceTime</option>
             <option>Zoom</option>
@@ -206,7 +206,9 @@ setInterval(function(){
   try{ parent.postMessage({mpuTermH: document.documentElement.scrollHeight}, "*"); }catch(e){}
 }, 600);
 
-load();
+const _thema=new URLSearchParams(location.search).get('thema');
+  if(_thema){document.getElementById('f_anlass').value=_thema;document.getElementById('anlassField').style.display='none';}
+  load();
 </script>
 </body>
 </html>
