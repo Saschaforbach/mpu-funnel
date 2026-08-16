@@ -613,7 +613,7 @@
   function act(a,b){a.style.background=G;a.style.color="#fff";b.style.background="#fff";b.style.color=G;}
   bForm.onclick=function(){act(bForm,bTermin);f.style.display="";wrap.style.display="none";};
   bTermin.onclick=function(){act(bTermin,bForm);f.style.display="none";wrap.style.display="";
-    if(!frame){frame=document.createElement("iframe");frame.src="termin.html";frame.title="Termin buchen";
+          if(!frame){frame=document.createElement("iframe");frame.src="termin.html?thema=Alkohol";frame.title="Termin buchen";
       frame.style.cssText="width:100%;height:900px;border:none;border-radius:12px;background:#f6f8f7";
       wrap.appendChild(frame);}
   };
