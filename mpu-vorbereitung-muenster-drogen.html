@@ -192,8 +192,8 @@
     </div>
 
     <div class="formcard" id="form">
-      <h3>Kostenlose Ersteinschätzung</h3>
-      <p class="sub">Kein Verkaufsgespräch – wir hören erst einmal zu. Vertraulich &amp; unverbindlich, ohne Bewertung.<br><strong style="color:var(--gruen-dunkel)">⏱ Antwort meist innerhalb weniger Stunden (Mo–Sa).</strong></p>
+      <h3>Kostenloses Erstgespräch</h3>
+      <p class="sub">Wählen Sie direkt einen freien Termin – unverbindlich, ohne Bewertung. Rückmeldung meist innerhalb weniger Stunden (Mo–Sa).</p>
       <form action="/danke.html" method="POST" id="leadform" onsubmit="return mpuTrack();">
         <input type="hidden" name="_subject" value="Neue MPU-Anfrage (Münster / Drogen) – Landingpage">
         <input type="hidden" name="_next" value="https://start.mpu-point.de/danke.html">
@@ -483,31 +483,20 @@
   setInterval(function(){gi=(gi+1)%GREV.length;grevShow(gi);},6000);
 </script>
 
-<!-- Termin-Buchung Umschalter -->
+<!-- Termin-Buchung Direkt -->
 <script>
 (function(){
   var f=document.getElementById("leadform");
   if(!f)return;
-  var G="#2e7d32";
-  var box=document.createElement("div");
-  box.style.cssText="display:flex;gap:8px;margin:0 0 14px";
-  function mk(t){var b=document.createElement("button");b.type="button";b.textContent=t;
-    b.style.cssText="flex:1;padding:11px 8px;border-radius:10px;border:2px solid "+G+";font-size:14px;font-weight:600;cursor:pointer;background:#fff;color:"+G;return b;}
-  var bForm=mk("\u2709\uFE0F Anfrage senden"), bTermin=mk("\uD83D\uDCC5 Termin direkt buchen");
-  var wrap=document.createElement("div"); wrap.style.display="none"; var frame=null;
-  function act(a,b){a.style.background=G;a.style.color="#fff";b.style.background="#fff";b.style.color=G;}
-  bForm.onclick=function(){act(bForm,bTermin);f.style.display="";wrap.style.display="none";};
-  bTermin.onclick=function(){act(bTermin,bForm);f.style.display="none";wrap.style.display="";
-    if(!frame){frame=document.createElement("iframe");frame.src="termin.html";frame.title="Termin buchen";
-      frame.style.cssText="width:100%;height:900px;border:none;border-radius:12px;background:#f6f8f7";
-      wrap.appendChild(frame);}
-  };
+  f.style.display="none";
+  var frame=document.createElement("iframe");
+  frame.src="termin.html";
+  frame.title="Termin buchen";
+  frame.style.cssText="width:100%;height:900px;border:none;border-radius:12px;background:#f6f8f7";
+  f.parentNode.insertBefore(frame,f);
   window.addEventListener("message",function(e){
-    if(e.data&&e.data.mpuTermH&&frame){frame.style.height=(e.data.mpuTermH+20)+"px";}
+    if(e.data&&e.data.mpuTermH){frame.style.height=(e.data.mpuTermH+20)+"px";}
   });
-  act(bForm,bTermin);
-  f.parentNode.insertBefore(box,f); box.appendChild(bForm); box.appendChild(bTermin);
-  f.parentNode.insertBefore(wrap,f.nextSibling);
 })();
 </script>
 </body>
