@@ -102,6 +102,19 @@
   .badges{background:var(--gruen-tint);padding:16px 0}
   .badges .wrap{display:flex;justify-content:center;flex-wrap:wrap;gap:12px}
   .badges span{background:#fff;border:1px solid var(--rand);border-radius:50px;padding:8px 16px;font-size:.86rem;font-weight:600;color:var(--dunkel)}
+
+  /* Trust-Strip (oben, direkt nach Header) */
+  .trustbar{background:var(--dunkel);padding:13px 0}
+  .trustbar .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  .trustbar .item{display:flex;align-items:center;justify-content:center;gap:7px;color:#fff;font-size:.82rem;font-weight:700;text-align:center;line-height:1.2}
+  .trustbar .item .ic{font-size:1.05rem;flex-shrink:0}
+
+  /* Preis-Karte (prominent, in der Hero-Spalte) */
+  .pricecard{background:#fff;border:2px solid var(--gruen);border-radius:var(--radius);padding:16px 20px;margin:4px 0 22px;display:flex;align-items:center;gap:16px;box-shadow:var(--schatten)}
+  .pricecard .amount{font-size:2rem;font-weight:800;color:var(--gruen-dunkel);white-space:nowrap;line-height:1}
+  .pricecard .amount small{display:block;font-size:.6rem;font-weight:700;color:var(--grau);text-transform:uppercase;letter-spacing:.4px;margin-top:3px}
+  .pricecard .txt{font-size:.86rem;color:var(--text);font-weight:600;line-height:1.4}
+  .pricecard .txt strong{color:var(--dunkel)}
   section.block{padding:60px 0}
   section.block.alt{background:var(--gruen-tint)}
   .block h2{font-size:1.85rem;text-align:center;margin-bottom:12px}
@@ -161,6 +174,9 @@
   footer .legal{border-top:1px solid #2c4036;padding-top:16px;display:flex;gap:16px;flex-wrap:wrap}
   .sticky{display:none}
   @media(max-width:880px){
+    .trustbar .wrap{grid-template-columns:1fr 1fr;gap:8px 6px}
+    .trustbar .item{font-size:.74rem;padding:4px 2px}
+    .pricecard{flex-direction:column;align-items:flex-start;gap:6px;padding:14px 16px}
     .hero .grid,.highlight,.person{grid-template-columns:1fr;gap:30px}
     .hero h1{font-size:2.05rem}
     .steps{grid-template-columns:1fr 1fr}
@@ -187,6 +203,17 @@
   </div>
 </header>
 
+<!-- ===== TRUST-STRIP (Vertrauen sofort sichtbar, auch mobil) ===== -->
+<div class="trustbar">
+  <div class="wrap">
+    <span class="item"><span class="ic">🕐</span> Seit 2016 · 5.000+ Kunden</span>
+    <span class="item"><span class="ic">🩺</span> Verkehrstherapeut persönlich</span>
+    <span class="item"><span class="ic">✅</span> 98,8 % Erfolgsquote</span>
+    <span class="item"><span class="ic">⭐</span> 4,9 · 95 Bewertungen</span>
+  </div>
+</div>
+
+
 <section class="hero">
   <div class="wrap grid">
     <div>
@@ -199,6 +226,11 @@
         <li>Glaubhafte Aufarbeitung Ihrer Tat &amp; Verhaltensänderung</li>
         <li>100 % online möglich – flexibel neben dem Beruf</li>
       </ul>
+      
+      <div class="pricecard">
+        <div class="amount">1.650 €<small>Festpreis</small></div>
+        <div class="txt"><strong>Einzelsitzungen, keine versteckten Kosten.</strong><br>Zahlbar erst vor Kursstart – nicht bei Anfrage.</div>
+      </div>
       <div class="hero-cta">
                         <a href="#form" class="btn" style="width:100%;justify-content:center">Kostenloses Erstgespräch buchen</a>
                 <a href="tel:+492119098960" style="color:var(--grau);text-decoration:none;font-weight:600;font-size:.85rem;border-bottom:1px dashed var(--rand)">📞 Lieber anrufen</a>
@@ -284,7 +316,7 @@
     </div>
     <p style="margin-top:22px;font-weight:700;color:var(--dunkel);text-align:center;font-size:1.1rem">Damit sind Sie nicht allein. Genau hier setzen wir an – ehrlich, ohne Bewertung und mit einem klaren Plan.</p>
     <p style="text-align:center;color:var(--grau);margin:18px auto 0;max-width:700px">Rund <strong>60 % fallen beim ersten Versuch durch</strong> – meist, weil sie unvorbereitet hineingehen. Mit gezielter Vorbereitung bestehen <strong>98,8 % unserer Klienten beim ersten Mal.</strong></p>
-    <p style="text-align:center;margin-top:24px"><a href="#form" class="btn">Kostenlose Ersteinschätzung</a></p>
+    <p style="text-align:center;margin-top:24px"><a href="#form" class="btn">Jetzt kostenloses Erstgespräch buchen</a></p>
   </div>
 </section>
 
@@ -305,7 +337,7 @@
     <span>⚖️ Nach offiziellen Beurteilungskriterien</span>
     <span>🤝 Fachanwalt für Verkehrsrecht</span>
     <span>🩺 Verkehrsmediziner an Bord</span>
-    <span>💶 Faire Festpreise</span>
+    <span>💶 Einzelsitzungen für 1.650 €</span>
   </div>
 </div>
 <section class="proof">
@@ -324,7 +356,7 @@
       <a href="https://www.mpu-point.de/gutachten/gutachten-08.webp" target="_blank" rel="noopener"><span class="tag">✓ Bestanden</span><img src="https://www.mpu-point.de/gutachten/gutachten-08.webp" alt="Positives MPU-Gutachten 8 – anonymisiert" loading="lazy"><span class="zoom">🔍 vergrößern</span></a>
     </div>
     <p style="font-size:.82rem;color:#9fb6a8">Alle Gutachten anonymisiert &amp; mit Einverständnis veröffentlicht.</p>
-    <p style="margin-top:18px"><a href="#form" class="btn" style="background:#7fe0a8;color:var(--dunkel)">Kostenlose Ersteinschätzung</a></p>
+    <p style="margin-top:18px"><a href="#form" class="btn" style="background:#7fe0a8;color:var(--dunkel)">Jetzt kostenloses Erstgespräch buchen</a></p>
   </div>
 </section>
 
@@ -385,7 +417,7 @@
         <h3>Unser Begleit-Versprechen</h3>
         <p>Wir lassen Sie nicht allein: Sollten Sie trotz abgeschlossener Vorbereitung bei der MPU nicht bestehen, <strong>begleiten wir Sie ohne zusätzliche Vorbereitungskosten weiter bis zum positiven Gutachten.</strong> Ihr Risiko liegt bei uns – nicht bei Ihnen.</p>
         <p class="fine">Gilt bei vollständig durchlaufener Vorbereitung inkl. aller vereinbarten Termine. Gebühren der Begutachtungsstelle sind davon ausgenommen.</p>
-        <a href="#form" class="btn" style="margin-top:14px">Kostenlose Ersteinschätzung</a>
+        <a href="#form" class="btn" style="margin-top:14px">Jetzt kostenloses Erstgespräch buchen</a>
       </div>
     </div>
   </div>
@@ -440,7 +472,7 @@
   <div class="wrap">
     <h2>Bereit für Ihren Weg zurück zum Führerschein?</h2>
     <p>Kostenloses, vertrauliches Erstgespräch – ohne Bewertung, ohne Verpflichtung.</p>
-    <a href="#form" class="btn">Kostenlose Ersteinschätzung</a>
+    <a href="#form" class="btn">Jetzt kostenloses Erstgespräch buchen</a>
     &nbsp;
     <a href="tel:+492119098960" class="btn" style="background:transparent;border:2px solid #fff;color:#fff">📞 0211 – 909 899 60</a>
   </div>
