@@ -1,0 +1,734 @@
+{
+  "redirects": [
+    {
+      "source": "/mpu-aachen.html",
+      "destination": "/mpu-vorbereitung-aachen.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-aachen.html",
+      "destination": "/mpu-vorbereitung-aachen.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-augsburg.html",
+      "destination": "/mpu-vorbereitung-augsburg.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-augsburg.html",
+      "destination": "/mpu-vorbereitung-augsburg.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-bergisch-gladbach.html",
+      "destination": "/mpu-vorbereitung-bergisch-gladbach.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-bergisch-gladbach.html",
+      "destination": "/mpu-vorbereitung-bergisch-gladbach.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-berlin.html",
+      "destination": "/mpu-vorbereitung-berlin.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-berlin.html",
+      "destination": "/mpu-vorbereitung-berlin.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-bielefeld.html",
+      "destination": "/mpu-vorbereitung-bielefeld.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-bielefeld.html",
+      "destination": "/mpu-vorbereitung-bielefeld.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-bochum.html",
+      "destination": "/mpu-vorbereitung-bochum.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-bochum.html",
+      "destination": "/mpu-vorbereitung-bochum.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-bonn.html",
+      "destination": "/mpu-vorbereitung-bonn.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-bonn.html",
+      "destination": "/mpu-vorbereitung-bonn.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-bottrop.html",
+      "destination": "/mpu-vorbereitung-bottrop.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-bottrop.html",
+      "destination": "/mpu-vorbereitung-bottrop.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-braunschweig.html",
+      "destination": "/mpu-vorbereitung-braunschweig.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-braunschweig.html",
+      "destination": "/mpu-vorbereitung-braunschweig.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-bremen.html",
+      "destination": "/mpu-vorbereitung-bremen.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-bremen.html",
+      "destination": "/mpu-vorbereitung-bremen.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-chemnitz.html",
+      "destination": "/mpu-vorbereitung-chemnitz.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-chemnitz.html",
+      "destination": "/mpu-vorbereitung-chemnitz.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-darmstadt.html",
+      "destination": "/mpu-vorbereitung-darmstadt.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-darmstadt.html",
+      "destination": "/mpu-vorbereitung-darmstadt.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-dortmund.html",
+      "destination": "/mpu-vorbereitung-dortmund.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-dortmund.html",
+      "destination": "/mpu-vorbereitung-dortmund.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-dresden.html",
+      "destination": "/mpu-vorbereitung-dresden.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-dresden.html",
+      "destination": "/mpu-vorbereitung-dresden.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-duesseldorf.html",
+      "destination": "/mpu-vorbereitung-duesseldorf.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-duesseldorf.html",
+      "destination": "/mpu-vorbereitung-duesseldorf.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-duisburg.html",
+      "destination": "/mpu-vorbereitung-duisburg.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-duisburg.html",
+      "destination": "/mpu-vorbereitung-duisburg.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-erfurt.html",
+      "destination": "/mpu-vorbereitung-erfurt.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-erfurt.html",
+      "destination": "/mpu-vorbereitung-erfurt.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-essen.html",
+      "destination": "/mpu-vorbereitung-essen.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-essen.html",
+      "destination": "/mpu-vorbereitung-essen.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-frankfurt.html",
+      "destination": "/mpu-vorbereitung-frankfurt.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-frankfurt.html",
+      "destination": "/mpu-vorbereitung-frankfurt.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-freiburg.html",
+      "destination": "/mpu-vorbereitung-freiburg.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-freiburg.html",
+      "destination": "/mpu-vorbereitung-freiburg.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-gelsenkirchen.html",
+      "destination": "/mpu-vorbereitung-gelsenkirchen.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-gelsenkirchen.html",
+      "destination": "/mpu-vorbereitung-gelsenkirchen.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-goettingen.html",
+      "destination": "/mpu-vorbereitung-goettingen.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-goettingen.html",
+      "destination": "/mpu-vorbereitung-goettingen.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-hagen.html",
+      "destination": "/mpu-vorbereitung-hagen.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-hagen.html",
+      "destination": "/mpu-vorbereitung-hagen.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-halle.html",
+      "destination": "/mpu-vorbereitung-halle.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-halle.html",
+      "destination": "/mpu-vorbereitung-halle.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-hamburg.html",
+      "destination": "/mpu-vorbereitung-hamburg.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-hamburg.html",
+      "destination": "/mpu-vorbereitung-hamburg.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-hamm.html",
+      "destination": "/mpu-vorbereitung-hamm.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-hamm.html",
+      "destination": "/mpu-vorbereitung-hamm.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-hannover.html",
+      "destination": "/mpu-vorbereitung-hannover.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-hannover.html",
+      "destination": "/mpu-vorbereitung-hannover.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-heidelberg.html",
+      "destination": "/mpu-vorbereitung-heidelberg.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-heidelberg.html",
+      "destination": "/mpu-vorbereitung-heidelberg.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-heilbronn.html",
+      "destination": "/mpu-vorbereitung-heilbronn.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-heilbronn.html",
+      "destination": "/mpu-vorbereitung-heilbronn.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-herne.html",
+      "destination": "/mpu-vorbereitung-herne.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-herne.html",
+      "destination": "/mpu-vorbereitung-herne.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-hildesheim.html",
+      "destination": "/mpu-vorbereitung-hildesheim.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-hildesheim.html",
+      "destination": "/mpu-vorbereitung-hildesheim.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-ingolstadt.html",
+      "destination": "/mpu-vorbereitung-ingolstadt.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-ingolstadt.html",
+      "destination": "/mpu-vorbereitung-ingolstadt.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-jena.html",
+      "destination": "/mpu-vorbereitung-jena.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-jena.html",
+      "destination": "/mpu-vorbereitung-jena.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-karlsruhe.html",
+      "destination": "/mpu-vorbereitung-karlsruhe.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-karlsruhe.html",
+      "destination": "/mpu-vorbereitung-karlsruhe.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-kassel.html",
+      "destination": "/mpu-vorbereitung-kassel.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-kassel.html",
+      "destination": "/mpu-vorbereitung-kassel.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-kiel.html",
+      "destination": "/mpu-vorbereitung-kiel.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-kiel.html",
+      "destination": "/mpu-vorbereitung-kiel.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-koblenz.html",
+      "destination": "/mpu-vorbereitung-koblenz.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-koblenz.html",
+      "destination": "/mpu-vorbereitung-koblenz.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-koeln.html",
+      "destination": "/mpu-vorbereitung-koeln.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-koeln.html",
+      "destination": "/mpu-vorbereitung-koeln.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-krefeld.html",
+      "destination": "/mpu-vorbereitung-krefeld.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-krefeld.html",
+      "destination": "/mpu-vorbereitung-krefeld.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-leipzig.html",
+      "destination": "/mpu-vorbereitung-leipzig.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-leipzig.html",
+      "destination": "/mpu-vorbereitung-leipzig.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-leverkusen.html",
+      "destination": "/mpu-vorbereitung-leverkusen.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-leverkusen.html",
+      "destination": "/mpu-vorbereitung-leverkusen.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-ludwigshafen.html",
+      "destination": "/mpu-vorbereitung-ludwigshafen.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-ludwigshafen.html",
+      "destination": "/mpu-vorbereitung-ludwigshafen.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-luebeck.html",
+      "destination": "/mpu-vorbereitung-luebeck.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-luebeck.html",
+      "destination": "/mpu-vorbereitung-luebeck.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-magdeburg.html",
+      "destination": "/mpu-vorbereitung-magdeburg.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-magdeburg.html",
+      "destination": "/mpu-vorbereitung-magdeburg.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-mainz.html",
+      "destination": "/mpu-vorbereitung-mainz.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-mainz.html",
+      "destination": "/mpu-vorbereitung-mainz.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-mannheim.html",
+      "destination": "/mpu-vorbereitung-mannheim.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-mannheim.html",
+      "destination": "/mpu-vorbereitung-mannheim.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-moenchengladbach.html",
+      "destination": "/mpu-vorbereitung-moenchengladbach.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-moenchengladbach.html",
+      "destination": "/mpu-vorbereitung-moenchengladbach.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-muelheim.html",
+      "destination": "/mpu-vorbereitung-muelheim.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-muelheim.html",
+      "destination": "/mpu-vorbereitung-muelheim.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-muenchen.html",
+      "destination": "/mpu-vorbereitung-muenchen.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-muenchen.html",
+      "destination": "/mpu-vorbereitung-muenchen.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-muenster.html",
+      "destination": "/mpu-vorbereitung-muenster.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-muenster.html",
+      "destination": "/mpu-vorbereitung-muenster.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-neuss.html",
+      "destination": "/mpu-vorbereitung-neuss.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-neuss.html",
+      "destination": "/mpu-vorbereitung-neuss.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-nuernberg.html",
+      "destination": "/mpu-vorbereitung-nuernberg.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-nuernberg.html",
+      "destination": "/mpu-vorbereitung-nuernberg.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-oberhausen.html",
+      "destination": "/mpu-vorbereitung-oberhausen.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-oberhausen.html",
+      "destination": "/mpu-vorbereitung-oberhausen.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-oldenburg.html",
+      "destination": "/mpu-vorbereitung-oldenburg.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-oldenburg.html",
+      "destination": "/mpu-vorbereitung-oldenburg.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-osnabrueck.html",
+      "destination": "/mpu-vorbereitung-osnabrueck.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-osnabrueck.html",
+      "destination": "/mpu-vorbereitung-osnabrueck.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-paderborn.html",
+      "destination": "/mpu-vorbereitung-paderborn.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-paderborn.html",
+      "destination": "/mpu-vorbereitung-paderborn.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-pforzheim.html",
+      "destination": "/mpu-vorbereitung-pforzheim.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-pforzheim.html",
+      "destination": "/mpu-vorbereitung-pforzheim.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-potsdam.html",
+      "destination": "/mpu-vorbereitung-potsdam.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-potsdam.html",
+      "destination": "/mpu-vorbereitung-potsdam.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-recklinghausen.html",
+      "destination": "/mpu-vorbereitung-recklinghausen.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-recklinghausen.html",
+      "destination": "/mpu-vorbereitung-recklinghausen.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-regensburg.html",
+      "destination": "/mpu-vorbereitung-regensburg.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-regensburg.html",
+      "destination": "/mpu-vorbereitung-regensburg.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-remscheid.html",
+      "destination": "/mpu-vorbereitung-remscheid.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-remscheid.html",
+      "destination": "/mpu-vorbereitung-remscheid.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-reutlingen.html",
+      "destination": "/mpu-vorbereitung-reutlingen.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-reutlingen.html",
+      "destination": "/mpu-vorbereitung-reutlingen.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-rostock.html",
+      "destination": "/mpu-vorbereitung-rostock.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-rostock.html",
+      "destination": "/mpu-vorbereitung-rostock.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-saarbruecken.html",
+      "destination": "/mpu-vorbereitung-saarbruecken.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-saarbruecken.html",
+      "destination": "/mpu-vorbereitung-saarbruecken.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-siegen.html",
+      "destination": "/mpu-vorbereitung-siegen.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-siegen.html",
+      "destination": "/mpu-vorbereitung-siegen.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-solingen.html",
+      "destination": "/mpu-vorbereitung-solingen.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-solingen.html",
+      "destination": "/mpu-vorbereitung-solingen.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-stuttgart.html",
+      "destination": "/mpu-vorbereitung-stuttgart.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-stuttgart.html",
+      "destination": "/mpu-vorbereitung-stuttgart.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-trier.html",
+      "destination": "/mpu-vorbereitung-trier.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-trier.html",
+      "destination": "/mpu-vorbereitung-trier.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-ulm.html",
+      "destination": "/mpu-vorbereitung-ulm.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-ulm.html",
+      "destination": "/mpu-vorbereitung-ulm.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-wiesbaden.html",
+      "destination": "/mpu-vorbereitung-wiesbaden.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-wiesbaden.html",
+      "destination": "/mpu-vorbereitung-wiesbaden.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-wolfsburg.html",
+      "destination": "/mpu-vorbereitung-wolfsburg.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-wolfsburg.html",
+      "destination": "/mpu-vorbereitung-wolfsburg.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-wuerzburg.html",
+      "destination": "/mpu-vorbereitung-wuerzburg.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-wuerzburg.html",
+      "destination": "/mpu-vorbereitung-wuerzburg.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-wuppertal.html",
+      "destination": "/mpu-vorbereitung-wuppertal.html",
+      "permanent": true
+    },
+    {
+      "source": "/mpu-beratung-wuppertal.html",
+      "destination": "/mpu-vorbereitung-wuppertal.html",
+      "permanent": true
+    }
+  ]
+}
