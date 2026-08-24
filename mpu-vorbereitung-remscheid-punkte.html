@@ -81,6 +81,13 @@
   .pricecard .txt{font-size:.86rem;color:var(--text);font-weight:600;line-height:1.4}
   .pricecard .txt strong{color:var(--dunkel)}
 
+  .wa-trust{display:flex;align-items:center;gap:12px;margin:4px 0 16px;padding:10px 14px;background:#fff;border:1px solid var(--rand);border-radius:16px;box-shadow:var(--schatten)}
+  .wa-trust img{width:44px;height:44px;border-radius:50%;object-fit:cover;object-position:top;border:2px solid #25d366;flex-shrink:0}
+  .wa-trust-txt{display:flex;flex-direction:column;line-height:1.3}
+  .wa-trust-txt strong{color:var(--dunkel);font-size:.92rem}
+  .wa-trust-txt span{color:var(--grau);font-size:.78rem}
+  .btn-wa{background:#25d366;color:#fff}
+  .btn-wa:hover{background:#1ebe5b;color:#fff}
   section.block{padding:60px 0}
   section.block.alt{background:var(--gruen-tint)}
   .block h2{font-size:1.85rem;text-align:center;margin-bottom:12px}
@@ -149,6 +156,10 @@
     .reviews{grid-template-columns:1fr}
     header.top .htel .num{display:none}
     .sticky{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:50;background:#fff;box-shadow:0 -4px 18px rgba(0,0,0,.12);padding:10px;gap:10px}
+    .wa-trust{padding:8px 12px;gap:10px}
+    .wa-trust img{width:38px;height:38px}
+    .wa-trust-txt span{font-size:.72rem}
+
     .sticky a{flex:1;text-align:center;padding:14px;border-radius:10px;font-weight:700;text-decoration:none;font-size:.95rem}
     .sticky .a-form{background:var(--gruen);color:#fff}
     .sticky .a-tel{background:var(--dunkel);color:#fff}
@@ -213,9 +224,13 @@
         <div class="amount">1.650 €<small>Festpreis</small></div>
         <div class="txt"><strong>Einzelsitzungen, keine versteckten Kosten.</strong><br>Zahlbar erst vor Kursstart – nicht bei Anfrage.</div>
       </div>
+      <div class="wa-trust">
+        <img src="https://www.mpu-point.de/vorschau-assets/founder-main.webp" alt="Sascha P. Forbach">
+        <div class="wa-trust-txt"><strong>Sascha P. Forbach</strong><span>Verkehrstherapeut · seit 2016 · antwortet meist selbst</span></div>
+      </div>
       <div class="hero-cta">
-        <a href="https://www.mpu-point.de/mpu-vorbereitung-buchen" class="btn btn-buchen">✅ MPU-Vorbereitung buchen</a>
-        <a href="#form" class="btn btn-ghost">Kostenlose Ersteinschätzung</a>
+        <a href="https://wa.me/491781014647?text=Hallo%20MPU%20Point%2C%20ich%20m%C3%B6chte%20direkt%20bei%20WhatsApp%20eine%20kostenlose%20Ersteinsch%C3%A4tzung%20(Remscheid)." class="btn btn-wa">💬 Jetzt bei WhatsApp schreiben</a>
+        <a href="https://www.mpu-point.de/mpu-vorbereitung-buchen" class="btn btn-ghost">MPU-Vorbereitung buchen</a>
       </div>
       <div class="ratingline">
         <span><span class="stars">★★★★★</span> 4,9 / 95 Google-Bewertungen</span>
@@ -233,6 +248,7 @@
         <input type="hidden" name="bundesland" value="Nordrhein-Westfalen">
         <input type="hidden" name="anlass" value="Punkte">
         <input type="hidden" name="seitentyp" value="Anlass-Punkte">
+        <input type="hidden" id="gclid_field" name="gclid" value="">
         <label for="name">Ihr Name</label>
         <input type="text" id="name" name="name" placeholder="Vor- und Nachname" autocomplete="name" required>
         <label for="tel">Telefonnummer</label>
@@ -452,13 +468,23 @@
 </footer>
 
 <div class="sticky">
-  <a href="https://www.mpu-point.de/mpu-vorbereitung-buchen" class="a-buchen" style="flex:3">✅ MPU-Vorbereitung buchen</a>
-  <a href="#form" class="a-form" style="flex:0 0 46px;padding:14px 0;font-size:1.1rem">✉️</a>
+  <a href="https://wa.me/491781014647?text=Hallo%20MPU%20Point%2C%20ich%20m%C3%B6chte%20direkt%20bei%20WhatsApp%20eine%20kostenlose%20Ersteinsch%C3%A4tzung%20(Remscheid)." class="a-wa" style="flex:3">💬 Bei WhatsApp schreiben</a>
+  <a href="https://www.mpu-point.de/mpu-vorbereitung-buchen" class="a-buchen" style="flex:0 0 46px;padding:14px 0;font-size:1.1rem">✅</a>
   <a href="tel:+492119098960" class="a-tel" style="flex:0 0 46px;padding:14px 0;font-size:1.1rem">📞</a>
 </div>
 
 <script>
   document.getElementById('jahr').textContent = new Date().getFullYear();
+  (function(){
+    try{
+      var p=new URLSearchParams(location.search);
+      var g=p.get('gclid');
+      if(g){ sessionStorage.setItem('mpu_gclid', g); }
+      else { g = sessionStorage.getItem('mpu_gclid') || ''; }
+      var f=document.getElementById('gclid_field');
+      if(f) f.value = g;
+    }catch(e){}
+  })();
   function mpuTrack(){
     try{
       var form=document.getElementById('leadform');
@@ -480,6 +506,7 @@
         tel:d.get("telefon")||"",
         anlass:d.get("anlass")||"",
         quelle:"start.mpu-point.de/"+location.pathname.split("/").pop(),
+        gclid:d.get("gclid")||"",
         anfrage:((d.get("nachricht")||"")+(extra.length?" | "+extra.join(" | "):"")).trim()
       });
       fetch("https://cms-deluxe-api.vercel.app/api/webhook-lead?token=whk_e4efae78d1839db7711b728497e80d8325b95520",{method:"POST",headers:{"Content-Type":"application/json"},body:payload,keepalive:true}).catch(function(){});
