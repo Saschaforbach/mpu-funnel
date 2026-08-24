@@ -539,7 +539,6 @@
   function grevShow(i){document.getElementById('grevtext').textContent=GREV[i][0];document.getElementById('grevwho').textContent=GREV[i][1]+' · Google-Rezension';}
   function grevToggle(){var b=document.getElementById('grev');b.classList.toggle('min');document.getElementById('grevx').textContent=b.classList.contains('min')?'▴':'▾';}
   grevShow(0);
-  setTimeout(function(){document.getElementById('grev').classList.remove('min');document.getElementById('grevx').textContent='▾';},2600);
   setInterval(function(){gi=(gi+1)%GREV.length;grevShow(gi);},6000);
 </script>
 
