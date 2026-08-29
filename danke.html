@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+<!-- Google tag (gtag.js) - Google Ads -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-709708397"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'AW-709708397');
+(function(){
+try{
+var p = new URLSearchParams(location.search);
+if(p.get('conv') === '1'){
+var val = parseFloat(p.get('v')) || 1320;
+gtag('event','conversion',{'send_to':'AW-709708397/2c-GCJL1-LscEO2UtdIC','value':val,'currency':'EUR'});
+}
+}catch(e){}
+})();
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
