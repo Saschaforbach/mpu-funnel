@@ -486,7 +486,6 @@
       form._sent=true;
       var btn=form.querySelector('button[type=submit],input[type=submit]');
       if(btn){ btn.disabled=true; }
-      try{ gtag('event','conversion',{'send_to':'AW-709708397/2c-GCJL1-LscEO2UtdIC','value':1320,'currency':'EUR'}); }catch(e){}
       var d=new FormData(form);
       var extra=[];
       ["stadt","bundesland","thema","seitentyp"].forEach(function(k){
@@ -504,7 +503,7 @@
       });
       fetch("https://cms-deluxe-api.vercel.app/api/webhook-lead?token=whk_e4efae78d1839db7711b728497e80d8325b95520",{method:"POST",headers:{"Content-Type":"application/json"},body:payload})
         .then(function(r){ return r.json().catch(function(){return{};}).then(function(j){ return {ok:(r.ok&&j.ok!==false)}; }); })
-        .then(function(res){ if(res.ok){ window.location.href='/danke.html'; } else { if(btn){btn.disabled=false;} form._sent=false; alert('Anfrage konnte nicht gesendet werden. Bitte versuche es erneut oder ruf uns direkt an: 0211-90989960.'); } })
+        .then(function(res){ if(res.ok){ window.location.href='/danke.html?conv=1&v=1320'; } else { if(btn){btn.disabled=false;} form._sent=false; alert('Anfrage konnte nicht gesendet werden. Bitte versuche es erneut oder ruf uns direkt an: 0211-90989960.'); } })
         .catch(function(){ if(btn){btn.disabled=false;} form._sent=false; alert('Anfrage konnte nicht gesendet werden. Bitte versuche es erneut oder ruf uns direkt an: 0211-90989960.'); });
       return false;
     }catch(e){ return true; }
