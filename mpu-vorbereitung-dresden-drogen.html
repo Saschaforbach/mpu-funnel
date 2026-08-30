@@ -182,6 +182,36 @@
   .grev .glink{display:block;text-align:center;font-size:.8rem;font-weight:700;color:var(--gruen);text-decoration:none;padding:9px;border-top:1px solid var(--rand)}
   @media(max-width:880px){.grev{left:10px;bottom:84px;width:260px}}
 </style>
+<style>
+/* === Mobil-Korrektur (Claude, 30.08.2026) ==========================
+   1) Nichts darf breiter als der Bildschirm sein.
+   2) Die feste Kontaktleiste bleibt in der Breite und wird antippbar.
+   3) Raster brechen auf schmalen Displays um.
+   ================================================================= */
+@media (max-width: 767px){
+  html, body { overflow-x: hidden !important; max-width: 100% !important; }
+  img, svg, iframe, table { max-width: 100% !important; height: auto; }
+
+  .sticky{
+    width: 100% !important; max-width: 100vw !important;
+    left: 0 !important; right: 0 !important;
+    box-sizing: border-box !important;
+    display: flex !important; flex-wrap: nowrap !important;
+    gap: 8px !important; padding: 8px !important;
+    padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+  .sticky > *{
+    flex: 1 1 0 !important; min-width: 0 !important; width: auto !important;
+    min-height: 48px !important;
+    display: flex !important; align-items: center !important; justify-content: center !important;
+    text-align: center !important; white-space: nowrap !important;
+    overflow: hidden !important; text-overflow: ellipsis !important;
+  }
+
+  .grid, .boxes, .steps, .cards, .row { display: block !important; }
+  .box, .step, .card { width: auto !important; max-width: 100% !important; margin-left: 0 !important; margin-right: 0 !important; }
+}
+</style>
 </head>
 <body>
 <header class="top">
@@ -485,7 +515,6 @@
       form._sent=true;
       var btn=form.querySelector('button[type=submit],input[type=submit]');
       if(btn){ btn.disabled=true; }
-      try{ gtag('event','conversion',{'send_to':'AW-709708397/2c-GCJL1-LscEO2UtdIC','value':1320,'currency':'EUR'}); }catch(e){}
       var d=new FormData(form);
       var extra=[];
       ["stadt","bundesland","thema","seitentyp"].forEach(function(k){
@@ -501,8 +530,8 @@
         gclid:d.get("gclid")||"",
         anfrage:((d.get("nachricht")||"")+(extra.length?" | "+extra.join(" | "):"")).trim()
       });
-      fetch("https://cms-deluxe-api.vercel.app/api/webhook-lead?token=whk_e4efae78d1839db7711b728497e80d8325b95520",{method:"POST",headers:{"Content-Type":"application/json"},body:payload,keepalive:true}).catch(function(){});
-      window.location.href='/danke.html';
+      fetch("https://cms-deluxe-api.vercel.app/api/webhook-lead?token=whk_e4efae78d1839db7711b728497e80d8325b95520",{method:"POST",headers:{"Content-Type":"application/json"},body:payload,keepalive:true}).then(function(r){if(!r.ok){throw new Error('HTTP '+r.status);}window.location.href='/danke.html';}).catch(function(e){try{console.error('Lead-Zustellung fehlgeschlagen:',e);}catch(_){} var b=form.querySelector('button[type=submit],input[type=submit]');if(b){b.disabled=false;}form._sent=false;alert('Ihre Anfrage konnte leider nicht uebermittelt werden. Bitte rufen Sie uns kurz an: 0211 909 899 60');});
+      
       return false;
     }catch(e){ return true; }
   }
