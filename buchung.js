@@ -70,8 +70,8 @@
     + '#buchung-overlay{position:fixed;inset:0;background:rgba(12,28,20,.6);z-index:99999;display:none;overflow-y:auto;padding:14px}'
     + '#buchung-overlay.offen{display:block}'
     + '#buchung{max-width:580px;margin:20px auto;background:var(--weiss);border-radius:18px;padding:22px 20px 26px;position:relative}'
-    + '#buchung h2{font-size:1.32rem;margin:0 0 6px;color:var(--dunkel)}'
-    + '#buchung .sub{margin:0 0 16px}'
+    + '#buchung h2{font-size:1.16rem;margin:0 0 4px;color:var(--dunkel);padding-right:34px}'
+    + '#buchung .sub{margin:0 0 12px;font-size:.92rem}'
     + '#buchung .bk-zu{position:absolute;top:10px;right:12px;border:none;background:none;font-size:30px;line-height:1;color:var(--grau);cursor:pointer;padding:0 6px}'
     + '#buchung .bk-karte{background:transparent;border:none;padding:0;max-width:none}'
     + '@media(max-width:560px){#buchung{margin:8px auto;padding:20px 16px 24px}}'
@@ -80,13 +80,15 @@
     + '#buchung .bk-fort{display:flex;gap:6px;margin-bottom:18px}'
     + '#buchung .bk-fort span{flex:1;height:4px;border-radius:2px;background:var(--rand)}'
     + '#buchung .bk-fort span.an{background:var(--gruen)}'
-    + '#buchung .bk-tage{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:8px;margin-bottom:14px}'
-    + '#buchung .bk-tag{padding:10px 8px;border:1px solid var(--rand);border-radius:12px;background:var(--weiss);text-align:center;cursor:pointer;font-family:inherit}'
+    + '#buchung .bk-tage{display:grid;grid-template-columns:repeat(auto-fill,minmax(58px,1fr));gap:6px;margin-bottom:10px;max-height:132px;overflow:hidden;transition:max-height .2s}'
+    + '#buchung .bk-tage.alle{max-height:none}'
+    + '#buchung .bk-mehr{display:block;width:100%;background:none;border:1px dashed var(--rand);border-radius:9px;color:var(--gruen);font-weight:700;padding:7px;margin-bottom:14px;cursor:pointer;font-family:inherit;font-size:.86rem}'
+    + '#buchung .bk-tag{padding:6px 3px;border:1px solid var(--rand);border-radius:9px;background:var(--weiss);text-align:center;cursor:pointer;font-family:inherit;line-height:1.15}'
     + '#buchung .bk-tag.gewaehlt{border-color:var(--gruen);background:var(--tint);border-width:2px}'
-    + '#buchung .bk-tag b{display:block;font-size:1.15rem;color:var(--dunkel);line-height:1.2}'
-    + '#buchung .bk-tag small{color:var(--grau);font-size:.78rem}'
-    + '#buchung .bk-zeiten{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px;margin-bottom:16px}'
-    + '#buchung .bk-zeit{padding:12px 6px;border:1px solid var(--rand);border-radius:10px;background:var(--weiss);cursor:pointer;font-weight:700;color:var(--dunkel);font-family:inherit;font-size:1rem}'
+    + '#buchung .bk-tag b{display:block;font-size:1.02rem;color:var(--dunkel)}'
+    + '#buchung .bk-tag small{color:var(--grau);font-size:.68rem;display:block}'
+    + '#buchung .bk-zeiten{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:6px;margin-bottom:14px}'
+    + '#buchung .bk-zeit{padding:10px 4px;border:1px solid var(--rand);border-radius:10px;background:var(--weiss);cursor:pointer;font-weight:700;color:var(--dunkel);font-family:inherit;font-size:1rem}'
     + '#buchung .bk-zeit.gewaehlt{border-color:var(--gruen);background:var(--tint);border-width:2px}'
     + '#buchung .bk-hinweis{color:var(--grau);font-size:.9rem;margin:10px 0}'
     + '#buchung .bk-fehler{color:#c0392b;font-weight:600;margin:10px 0;display:none}'
@@ -97,8 +99,8 @@
 
   var HTML = ''
     + '<button type="button" class="bk-zu" aria-label="Schliessen">&times;</button>'
-    + '<h2>Termin fürs kostenlose Erstgespräch</h2>'
-    + '<p class="sub">Zwei Angaben, dann Wunschtermin wählen. Dauert etwa eine Minute.</p>'
+    + '<h2>Termin fürs Erstgespräch</h2>'
+    + '<p class="sub">Zwei Angaben, dann Wunschtermin wählen.</p>'
     + '<div class="bk-karte">'
     + '<div class="bk-fort"><span class="an"></span><span></span><span></span></div>'
 
@@ -119,6 +121,7 @@
     + '<div class="bk-schritt" data-schritt="2">'
     +   '<p class="bk-hinweis" id="bk-laden">Freie Termine werden geladen …</p>'
     +   '<div class="bk-tage" id="bk-tage"></div>'
+    +   '<button type="button" class="bk-mehr" id="bk-mehr" hidden>Weitere Termine anzeigen</button>'
     +   '<div class="bk-zeiten" id="bk-zeiten"></div>'
     +   '<p class="bk-fehler" id="bk-fehler2"></p>'
     +   '<button type="button" class="bk-zurueck" data-zurueck="1">← Zurück</button>'
@@ -270,7 +273,18 @@
       });
     });
 
-    if (tage.length) q('bk-tage').querySelector('.bk-tag').click();
+    var raster = q('bk-tage');
+    var mehr = q('bk-mehr');
+    if (tage.length > 8) {
+      mehr.hidden = false;
+      mehr.textContent = 'Weitere Termine anzeigen (' + (tage.length - 8) + ')';
+      mehr.onclick = function () { raster.classList.add('alle'); mehr.hidden = true; };
+    } else {
+      mehr.hidden = true;
+      raster.classList.add('alle');
+    }
+
+    if (tage.length) raster.querySelector('.bk-tag').click();
   }
 
   function zeichneZeiten() {
