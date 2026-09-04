@@ -11,9 +11,25 @@ gtag('config', 'AW-709708397');
 (function(){
 try{
 var p = new URLSearchParams(location.search);
-if(p.get('conv') === '1'){
-var val = parseFloat(p.get('v')) || 1320;
-gtag('event','conversion',{'send_to':'AW-709708397/2c-GCJL1-LscEO2UtdIC','value':val,'currency':'EUR'});
+var val = parseFloat(p.get('v')) || 330;
+/* LP - Formular-Lead - feuert bei jedem Aufruf von danke.html,
+   damit alle Landingpages erfasst werden (nicht nur die mit conv=1) */
+gtag('event','conversion',{'send_to':'AW-709708397/KFxkCK_Wn-4cEO2UtdIC','value':val,'currency':'EUR'});
+var g = p.get('gclid') || '';
+if(!g){ try{ g = sessionStorage.getItem('mpu_gclid') || ''; }catch(e){} }
+if(g){
+try{ localStorage.setItem('mpu_gclid', g); }catch(e){}
+document.addEventListener('DOMContentLoaded', function(){
+var l = document.querySelectorAll('a[href^="http"]');
+for(var i=0;i<l.length;i++){
+try{
+var u = new URL(l[i].href);
+if(/(^|\.)mpu-point\.de$|(^|\.)mpu-plattform\.de$/.test(u.hostname) && !u.searchParams.has('gclid')){
+u.searchParams.set('gclid', g); l[i].href = u.toString();
+}
+}catch(e){}
+}
+});
 }
 }catch(e){}
 })();
