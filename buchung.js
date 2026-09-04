@@ -43,7 +43,7 @@
   var ADS_ID   = 'AW-709708397';
   var LBL_LEAD = 'KFxkCK_Wn-4cEO2UtdIC';   // LP - Formular-Lead, 330 EUR
 
-  var TAGE_VORAUS = 21;
+  var TAGE_VORAUS = 42;
 
   var THEMEN = { alkohol: 'Alkohol', drogen: 'Drogen', punkte: 'Punkte', straftaten: 'Straftaten' };
 
@@ -67,14 +67,21 @@
   /* ---------- Darstellung --------------------------------- */
 
   var CSS = ''
-    + '#buchung .bk-karte{background:var(--weiss);border:2px solid var(--gruen);border-radius:16px;padding:22px;max-width:560px}'
+    + '#buchung-overlay{position:fixed;inset:0;background:rgba(12,28,20,.6);z-index:99999;display:none;overflow-y:auto;padding:14px}'
+    + '#buchung-overlay.offen{display:block}'
+    + '#buchung{max-width:580px;margin:20px auto;background:var(--weiss);border-radius:18px;padding:22px 20px 26px;position:relative}'
+    + '#buchung h2{font-size:1.32rem;margin:0 0 6px;color:var(--dunkel)}'
+    + '#buchung .sub{margin:0 0 16px}'
+    + '#buchung .bk-zu{position:absolute;top:10px;right:12px;border:none;background:none;font-size:30px;line-height:1;color:var(--grau);cursor:pointer;padding:0 6px}'
+    + '#buchung .bk-karte{background:transparent;border:none;padding:0;max-width:none}'
+    + '@media(max-width:560px){#buchung{margin:8px auto;padding:20px 16px 24px}}'
     + '#buchung .bk-schritt{display:none}'
     + '#buchung .bk-schritt.aktiv{display:block}'
     + '#buchung .bk-fort{display:flex;gap:6px;margin-bottom:18px}'
     + '#buchung .bk-fort span{flex:1;height:4px;border-radius:2px;background:var(--rand)}'
     + '#buchung .bk-fort span.an{background:var(--gruen)}'
-    + '#buchung .bk-tage{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:14px;-webkit-overflow-scrolling:touch}'
-    + '#buchung .bk-tag{flex:0 0 auto;min-width:76px;padding:10px 8px;border:1px solid var(--rand);border-radius:12px;background:var(--weiss);text-align:center;cursor:pointer;font-family:inherit}'
+    + '#buchung .bk-tage{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:8px;margin-bottom:14px}'
+    + '#buchung .bk-tag{padding:10px 8px;border:1px solid var(--rand);border-radius:12px;background:var(--weiss);text-align:center;cursor:pointer;font-family:inherit}'
     + '#buchung .bk-tag.gewaehlt{border-color:var(--gruen);background:var(--tint);border-width:2px}'
     + '#buchung .bk-tag b{display:block;font-size:1.15rem;color:var(--dunkel);line-height:1.2}'
     + '#buchung .bk-tag small{color:var(--grau);font-size:.78rem}'
@@ -89,7 +96,7 @@
     + '#buchung label.bk-check input{margin-top:3px;flex:0 0 auto;width:18px;height:18px}';
 
   var HTML = ''
-    + '<div class="wrap">'
+    + '<button type="button" class="bk-zu" aria-label="Schliessen">&times;</button>'
     + '<h2>Termin fürs kostenlose Erstgespräch</h2>'
     + '<p class="sub">Zwei Angaben, dann Wunschtermin wählen. Dauert etwa eine Minute.</p>'
     + '<div class="bk-karte">'
@@ -137,6 +144,18 @@
 
   function q(id) { return document.getElementById(id); }
 
+  function oeffnen() {
+    document.getElementById('buchung-overlay').classList.add('offen');
+    document.body.style.overflow = 'hidden';
+    var f = q('bk-name');
+    if (f && !f.value) setTimeout(function () { f.focus(); }, 120);
+  }
+
+  function schliessen() {
+    document.getElementById('buchung-overlay').classList.remove('offen');
+    document.body.style.overflow = '';
+  }
+
   function zeigeSchritt(n) {
     var s = document.querySelectorAll('#buchung .bk-schritt');
     for (var i = 0; i < s.length; i++) {
@@ -144,7 +163,9 @@
     }
     var f = document.querySelectorAll('#buchung .bk-fort span');
     for (var j = 0; j < f.length; j++) f[j].classList.toggle('an', j < n);
-    document.getElementById('buchung').scrollIntoView({ block: 'start', behavior: 'smooth' });
+    document.getElementById('buchung').scrollTop = 0;
+    var ov = document.getElementById('buchung-overlay');
+    if (ov) ov.scrollTop = 0;
   }
 
   function fehler(id, text) {
@@ -342,14 +363,17 @@
     stil.textContent = CSS;
     document.head.appendChild(stil);
 
-    var sek = document.createElement('section');
+    var overlay = document.createElement('div');
+    overlay.id = 'buchung-overlay';
+    var sek = document.createElement('div');
     sek.id = 'buchung';
-    sek.className = 'alt';
     sek.innerHTML = HTML;
+    overlay.appendChild(sek);
+    document.body.appendChild(overlay);
 
-    var ziel = document.getElementById('anfrage');
-    if (ziel && ziel.parentNode) ziel.parentNode.insertBefore(sek, ziel);
-    else document.body.appendChild(sek);
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) schliessen(); });
+    sek.querySelector('.bk-zu').addEventListener('click', schliessen);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') schliessen(); });
 
     q('bk-weiter').addEventListener('click', schritt1);
     q('bk-buchen').addEventListener('click', buchen);
@@ -358,10 +382,10 @@
     });
 
     // Buchen-Buttons auf die eigene Sektion umhaengen
-    document.querySelectorAll('a[href*="mpu-point.de/?buchen=1"]').forEach(function (a) {
-      a.setAttribute('href', '#buchung');
+    document.querySelectorAll('a[href*="mpu-point.de/?buchen=1"], a[href="#buchung"], a[href="#anfrage"]').forEach(function (a) {
       a.removeAttribute('target');
       a.removeAttribute('rel');
+      a.addEventListener('click', function (e) { e.preventDefault(); oeffnen(); });
     });
   }
 
