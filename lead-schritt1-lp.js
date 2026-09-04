@@ -1,5 +1,5 @@
 /* ============================================================
-   Schritt-1-Erfassung fuer die Landingpages (Staedte-Seiten)
+   Schritt-1-Erfassung fuer die Landingpages
    Meldet Name + Telefon ans CMS, sobald sie eingetippt wurden -
    auch wenn das Formular danach nie abgeschickt wird.
    Greift nicht in den normalen Formularversand ein.
@@ -7,19 +7,26 @@
 (function () {
   var ZIEL = 'https://cms-deluxe-api.vercel.app/api/webhook-lead?token=whk_e4efae78d1839db7711b728497e80d8325b95520';
 
-  function v(id) { var e = document.getElementById(id); return e ? String(e.value || '').trim() : ''; }
-  function versteckt(n) { var e = document.querySelector('input[name="' + n + '"]'); return e ? String(e.value || '').trim() : ''; }
+  function wert(namen) {
+    for (var i = 0; i < namen.length; i++) {
+      var e = document.querySelector('#leadform [name="' + namen[i] + '"]') || document.querySelector('[name="' + namen[i] + '"]');
+      if (e && String(e.value || '').trim()) return String(e.value).trim();
+    }
+    return '';
+  }
 
   function gclid() {
     try {
       var g = new URLSearchParams(location.search).get('gclid');
       if (g) { sessionStorage.setItem('mpu_gclid', g); return g; }
-      return v('gclid_field') || sessionStorage.getItem('mpu_gclid') || '';
+      return wert(['gclid']) || sessionStorage.getItem('mpu_gclid') || '';
     } catch (e) { return ''; }
   }
 
   function melde() {
-    var name = v('name'), tel = v('tel'), mail = v('email');
+    var name = wert(['name']);
+    var tel  = wert(['telefon', 'tel']);
+    var mail = wert(['email']);
     if (name.length < 2) return;
     if (tel.replace(/[^0-9]/g, '').length < 6) return;
 
@@ -29,9 +36,8 @@
       sessionStorage.setItem('mpu_schritt1', schluessel);
     } catch (e) {}
 
-    var themaEl = document.getElementById('thema');
-    var thema = (themaEl && themaEl.value) || versteckt('anlass') || '';
-    var stadt = versteckt('stadt');
+    var thema = wert(['thema', 'anlass']);
+    var stadt = wert(['stadt']);
 
     try {
       fetch(ZIEL, {
@@ -53,8 +59,10 @@
   }
 
   document.addEventListener('blur', function (ev) {
-    var id = (ev.target && ev.target.id) || '';
-    if (id === 'name' || id === 'tel' || id === 'email') setTimeout(melde, 30);
+    var t = ev.target;
+    if (!t || !t.name) return;
+    if (['name', 'telefon', 'tel', 'email'].indexOf(t.name) < 0) return;
+    setTimeout(melde, 30);
   }, true);
 
   window.addEventListener('pagehide', melde);
