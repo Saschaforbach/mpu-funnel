@@ -42,6 +42,7 @@
 
   var ADS_ID   = 'AW-709708397';
   var LBL_LEAD = 'KFxkCK_Wn-4cEO2UtdIC';   // LP - Formular-Lead, 330 EUR
+   var LBL_KONTAKT = '8W_PCNrQpPIcEO2UtdIC'; // LP - Kontakt Schritt 1, 60 EUR
 
   var TAGE_VORAUS = 42;
 
@@ -220,6 +221,9 @@
       }),
       keepalive: true
     }).catch(function (e) { console.error('Lead-Vorabsicherung fehlgeschlagen:', e); });
+
+     // Schritt-1-Conversion an Google Ads melden
+     if (typeof gtag === 'function') { gtag('event', 'conversion', { send_to: ADS_ID + '/' + LBL_KONTAKT, value: 60, currency: 'EUR' }); }
 
     btn.disabled = false;
     btn.textContent = 'Weiter zur Terminauswahl';
