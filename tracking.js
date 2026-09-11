@@ -12,7 +12,7 @@
   var AW = 'AW-709708397';
   var LABEL = {
     telefon:  '',  // Conversion-Aktion 'LP-Telefon' (Klick auf Telefonnummer)
-    whatsapp: ''   // Conversion-Aktion 'LP - WhatsApp-Klick'
+    whatsapp: 'HOiDCOOp7vMcEO2UtdIC'   // Conversion-Aktion 'LP WhatsApp-Klick (tracking.js)', primaer, Kategorie Kontakt
   };
 
   function sende(label) {
