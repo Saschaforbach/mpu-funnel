@@ -1,9 +1,25 @@
 {
   "redirects": [
-    { "source": "/alkohol.html", "destination": "https://funnel.mpu-point.de/alkohol/", "permanent": false },
-    { "source": "/drogen.html", "destination": "https://funnel.mpu-point.de/drogen/", "permanent": false },
-    { "source": "/punkte.html", "destination": "https://funnel.mpu-point.de/punkte/", "permanent": false },
-    { "source": "/mpu-hilfe.html", "destination": "https://funnel.mpu-point.de/mpu-hilfe", "permanent": false },
+    {
+      "source": "/alkohol.html",
+      "destination": "https://funnel.mpu-point.de/alkohol/",
+      "permanent": false
+    },
+    {
+      "source": "/drogen.html",
+      "destination": "https://funnel.mpu-point.de/drogen/",
+      "permanent": false
+    },
+    {
+      "source": "/punkte.html",
+      "destination": "https://funnel.mpu-point.de/punkte/",
+      "permanent": false
+    },
+    {
+      "source": "/mpu-hilfe.html",
+      "destination": "https://funnel.mpu-point.de/mpu-hilfe",
+      "permanent": false
+    },
     {
       "source": "/mpu-aachen.html",
       "destination": "/mpu-vorbereitung-aachen.html",
@@ -733,6 +749,17 @@
       "source": "/mpu-beratung-wuppertal.html",
       "destination": "/mpu-vorbereitung-wuppertal.html",
       "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, follow"
+        }
+      ]
     }
   ]
 }
